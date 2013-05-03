@@ -43,4 +43,5 @@ Todo: Write usage info
 ## Thanks
 
 Many thanks to Krzysztof Zabłocki and Evan Doll for the idea and
-implementation details.
+implementation
+[details](http://www.merowing.info/2013/03/overlaying-application-version-on-top-of-your-icon/).

@@ -12,7 +12,7 @@ namespace :rubberstamp do
     project_config_vars = Motion::Project::App.config.variables
 
     app_version = project_config_vars['version']
-    #git_commit  = %x["git rev-parse --short HEAD"]
+    # execute shell commands to get git info
     git_commit  = `git rev-parse --short HEAD`
     git_branch  = `git rev-parse --abbrev-ref HEAD`
 
