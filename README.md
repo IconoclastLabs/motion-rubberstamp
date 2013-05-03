@@ -1,4 +1,4 @@
-# Motion::Rubberstamp
+# Motion-Rubberstamp
 
 This is aimed at being a development tool, it will create an 
 overlay for your iOS app icon that include your version and
@@ -33,7 +33,17 @@ can easily be installed via homebrew:
 First Rename your Icon files (where * is @2x, -568h etc.) to Icon_base, e.g.
 Icon@2x_base.png
 
+Run the new rake task:
 
+    $ rake rubberstamp:run
+
+Now when you next build your project, build information will be part of
+your icon.
+
+Unfortunately it appears that there's no build hook system available for
+RubyMotion so this will have to be ran manually before each build, or
+you'll need to write a custom rake task to Rubberstamp your icons and
+then invoke the build.
 
 ## Contributing
 

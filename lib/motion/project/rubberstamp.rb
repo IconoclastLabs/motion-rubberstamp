@@ -8,7 +8,6 @@ end
 
 namespace :rubberstamp do
   desc "Stamp iOS app icons with version and git information"
-  
   def process_icon(icon_name, caption)
     # There's probably a better way to get this info, I'm not terribly familiar with Ruby's filesystem libs
     pwd = Pathname.pwd
@@ -27,7 +26,6 @@ namespace :rubberstamp do
   end
 
   task :run do
-
     project_config_vars = Motion::Project::App.config.variables
 
     app_version = project_config_vars['version']
@@ -40,6 +38,11 @@ namespace :rubberstamp do
     process_icon("Icon@2x_base.png", caption)
     process_icon("Icon-72_base.png", caption)
     process_icon("Icon-72@2x_base.png", caption)
+  end
+
+  desc "Copy your current app icons to _base backups, or install a default set if you don't have icons yet."
+  task :install do
+    p Dir.glob('resources/Icon*')
   end
 
 end
