@@ -1,15 +1,15 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'motion/rubberstamp/version'
+require 'rubberstamp/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "motion-rubberstamp"
-  spec.version       = Motion::Rubberstamp::VERSION
+  spec.version       = Rubberstamp::VERSION
   spec.authors       = ["Matt Garrison"]
   spec.email         = ["mattsgarrison@iconoclastlabs.com"]
-  spec.description   = %q{TODO: Write a description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Adds version and git information overlays to your iOS app icon}
+  spec.summary       = %q{Adds version and git information overlays to your iOS app icon}
   spec.homepage      = "http://github.com/mattsgarrison/motion-rubberstamp"
   spec.license       = "MIT"
 
