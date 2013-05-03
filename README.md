@@ -1,8 +1,8 @@
 # Motion-Rubberstamp
 
-This is aimed at being a development tool, it will create an 
+This is aimed at being a development tool, it will create an
 overlay for your iOS app icon that include your version and
-commit information so you can know exactly what version of 
+commit information so you can know exactly what version of
 your app is running on your device.
 
 TODO: insert example icon with before/after

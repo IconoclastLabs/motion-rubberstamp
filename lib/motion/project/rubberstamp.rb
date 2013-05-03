@@ -1,17 +1,20 @@
 require 'pathname'
+require 'fileutils'
 
-Motion::Project::App.setup do |app|
-  app.development do
-    app.vendor_project File.join(File.dirname(__FILE__),"..",'..','framework'), :static
-  end
-end
+# Motion::Project::App.setup do |app|
+#   app.development do
+#     app.vendor_project File.join(File.dirname(__FILE__),"..",'..','framework'), :static
+#   end
+# end
 
 namespace :rubberstamp do
   desc "Stamp iOS app icons with version and git information"
   def process_icon(icon_name, caption)
     # There's probably a better way to get this info, I'm not terribly familiar with Ruby's filesystem libs
+
+    # Resolve icon's full path
     pwd = Pathname.pwd
-    filename = "#{pwd.realdirpath.to_s}/resources/#{icon_name}"
+    filename = "#{pwd.realdirpath.to_s}/#{icon_name}"
 
     if File.exist? filename
       width= `identify -format '%w' #{filename}`.to_i
@@ -19,10 +22,9 @@ namespace :rubberstamp do
       status = `convert -background '#0008' -fill white -gravity center -size #{width}x40\
                 caption:"#{caption}"\
                 #{filename} +swap -gravity south -composite #{new_filename}`
-      p status
     else
-      puts "File does not exist"
-    end 
+      puts "File does not exist, you broke it."
+    end
   end
 
   task :run do
@@ -34,15 +36,21 @@ namespace :rubberstamp do
     git_branch  = `git rev-parse --abbrev-ref HEAD`
 
     caption = "v#{app_version} #{git_commit} #{git_branch}"
-    process_icon("Icon_base.png", caption)
-    process_icon("Icon@2x_base.png", caption)
-    process_icon("Icon-72_base.png", caption)
-    process_icon("Icon-72@2x_base.png", caption)
+    # process_icon("Icon_base.png", caption)
+    # process_icon("Icon@2x_base.png", caption)
+    # process_icon("Icon-72_base.png", caption)
+    # process_icon("Icon-72@2x_base.png", caption)
+    Dir.glob('resources/*_base.png').each do |icon|
+      process_icon(icon, caption)
+    end
   end
 
   desc "Copy your current app icons to _base backups, or install a default set if you don't have icons yet."
   task :install do
-    p Dir.glob('resources/Icon*')
+    icons =  Dir.glob('resources/Icon*')
+    icons.each do |icon|
+      FileUtils.cp(icon, icon.gsub('.png', '_base.png'), :verbose => true)
+    end
   end
 
 end
