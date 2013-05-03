@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Motion::Rubberstamp::VERSION
   spec.authors       = ["Matt Garrison"]
   spec.email         = ["mattsgarrison@iconoclastlabs.com"]
-  spec.description   = %q{}
-  spec.summary       = %q{}
-  spec.homepage      = ""
+  spec.description   = %q{TODO: Write a description}
+  spec.summary       = %q{TODO: Write a gem summary}
+  spec.homepage      = "http://github.com/mattsgarrison/motion-rubberstamp"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
