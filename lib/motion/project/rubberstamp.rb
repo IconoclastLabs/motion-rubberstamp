@@ -12,10 +12,11 @@ namespace :rubberstamp do
     project_config_vars = Motion::Project::App.config.variables
 
     app_version = project_config_vars['version']
-    git_commit  = %x["git rev-parse --short HEAD"]
-    git_branch  = %x["git rev-parse --abbrev-ref HEAD"]
+    #git_commit  = %x["git rev-parse --short HEAD"]
+    git_commit  = `git rev-parse --short HEAD`
+    git_branch  = `git rev-parse --abbrev-ref HEAD`
 
-    p "v#{app_version}, #{git_commit}, #{git_branch}"
+    caption = "v#{app_version} #{git_commit} #{git_branch}"
 
   end
 
