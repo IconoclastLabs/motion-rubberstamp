@@ -28,8 +28,8 @@ namespace :rubberstamp do
   end
 
   task :run do
+    # piggyback on RubyMotion's own app config tool
     project_config_vars = Motion::Project::App.config.variables
-
     app_version = project_config_vars['version']
     # execute shell commands to get git info
     git_commit  = `git rev-parse --short HEAD`
@@ -45,7 +45,7 @@ namespace :rubberstamp do
     end
   end
 
-  desc "Copy your current app icons to _base backups, or install a default set if you don't have icons yet."
+  desc "Copy your current app icons to `_base` equivalent backups."
   task :install do
     icons =  Dir.glob('resources/Icon*')
     icons.each do |icon|

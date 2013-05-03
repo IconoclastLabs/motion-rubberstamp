@@ -1,11 +1,17 @@
 # Motion-Rubberstamp
 
 This is aimed at being a development tool, it will create an
-overlay for your iOS app icon that include your version and
-commit information so you can know exactly what version of
-your app is running on your device.
+overlay for your iOS app icon that includes your version, commit
+and branch information so you can know exactly what version of
+your app is running on your device, or so that beta testers can
+easily report which version they are running.
 
-TODO: insert example icon with before/after
+Here's what it does:
+
+Before:
+![Before motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/icon-before.png "Before motion-rubberstamp")
+After:
+![After motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/icon_after.png "After motion-rubberstamp")
 
 ## Installation
 
@@ -30,22 +36,27 @@ can easily be installed via homebrew:
 
 ## Usage
 
-First Rename your Icon files (where * is @2x, -568h etc.) to Icon_base, e.g.
-Icon@2x_base.png
+First use the provided rake task to rename your Icon files (where * is @2x, -568h etc.) to Icon_base, e.g.
+Icon@2x_base.png. This rake task automates it for you if your icons already exist:
 
-Run the new rake task:
+    $ rake rubberstamp:install
+
+Then run the rake task to apply the overlay to your icons:
 
     $ rake rubberstamp:run
 
-Now when you next build your project, build information will be part of
-your icon.
+Now when you next build your project, build information will be overlayed
+as part of your icon.
 
-Unfortunately it appears that there's no build hook system available for
+Unfortunately it doesn't appear that there's a build hook system available for
 RubyMotion so this will have to be ran manually before each build, or
 you'll need to write a custom rake task to Rubberstamp your icons and
-then invoke the build.
+then invoke the build sequentially.
 
 ## Contributing
+
+I've probably made the file management more difficult and rigid than it needs to be, and I have no
+clue how to write tests for this. But I'll gladly accept any help that's offered.
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
