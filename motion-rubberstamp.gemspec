@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Motion::Rubberstamp::VERSION
   spec.authors       = ["Matt Garrison"]
   spec.email         = ["mattsgarrison@iconoclastlabs.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{}
+  spec.summary       = %q{}
   spec.homepage      = ""
   spec.license       = "MIT"
 
