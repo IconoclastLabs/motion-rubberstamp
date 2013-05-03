@@ -30,7 +30,10 @@ can easily be installed via homebrew:
 
 ## Usage
 
-Todo: Write usage info
+First Rename your Icon files (where * is @2x, -568h etc.) to Icon_base, e.g.
+Icon@2x_base.png
+
+
 
 ## Contributing
 
