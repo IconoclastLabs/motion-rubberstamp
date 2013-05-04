@@ -9,7 +9,7 @@ easily report which version they are running.
 Here's what it does:
 
 Before:
-![Before motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/icon-before.png "Before motion-rubberstamp")
+![Before motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/icon_before.png "Before motion-rubberstamp")
 After:
 ![After motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/icon_after.png "After motion-rubberstamp")
 
