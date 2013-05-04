@@ -28,7 +28,7 @@ Or install it yourself as:
     $ gem install motion-rubberstamp
 
 This gem relies on imagemagick and ghostscript, which
-can easily be installed via homebrew:
+can easily be installed via [Homebrew](http://mxcl.github.io/homebrew/):
 
     $ brew install imagemagick
 
