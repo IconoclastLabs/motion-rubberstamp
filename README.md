@@ -15,7 +15,7 @@ After:
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your RubyMotion app's Gemfile:
 
     gem 'motion-rubberstamp'
 
@@ -23,11 +23,15 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Or install it manually as:
 
     $ gem install motion-rubberstamp
 
-This gem relies on imagemagick and ghostscript, which
+and add to your RubyMotion app's Rakefile
+
+    require 'motion-rubberstamp'
+
+This gem also relies on imagemagick and ghostscript, which
 can easily be installed via [Homebrew](http://mxcl.github.io/homebrew/):
 
     $ brew install imagemagick
@@ -36,27 +40,25 @@ can easily be installed via [Homebrew](http://mxcl.github.io/homebrew/):
 
 ## Usage
 
-motion-rubberstamp adds itself to the build process, so whenever you run `rake` or `rake device` it will 
-automatically invoke `rake rubberstamp:run` beforehand. When you run `rake archive` or `rake archive:distribution`,
-motion-rubberstamp will automatically invoke `rake rubberstamp:revert`. This means that development builds
-will automatically receive overlays and release builds will use your original icons.
+Motion-rubberstamp adds itself to the build process, so whenever you run `rake` or `rake device` it will 
+automatically invoke `rake rubberstamp:run` beforehand. 
 
-Alternatively, you can manually invoke motion-rubberstamp. First use the provided rake task to rename your
-Icon files (where * is @2x, -568h etc.) to Icon_base, e.g. Icon@2x_base.png. This rake task automates it 
-for you if your icons already exist:
+When you run `rake archive` or `rake archive:distribution`, motion-rubberstamp will automatically invoke 
+`rake rubberstamp:revert`. This means that development builds will now automatically receive overlays and 
+release builds will use your original icons.
 
-    $ rake rubberstamp:install
-
-Then run the rake task to apply the overlay to your icons:
+You can also manually invoke motion-rubberstamp at any time with:
 
     $ rake rubberstamp:run
 
-Now when you next build your project, build information will be overlayed
-as part of your icon.
-
-To remove the overlays and restore your original icons, you can run
+Or to remove the overlays and restore your original icons, you can run
 
     $ rake rubberstamp:revert
+    
+## Uninstalling
+
+Motion-rubberstamp duplicates your original icon files with `_base` suffixes. To uninstall, simply remove
+motion-rubberstamp from your gemfile
 
 ## Contributing
 
