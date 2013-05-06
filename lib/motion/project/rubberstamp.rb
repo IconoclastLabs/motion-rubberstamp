@@ -39,6 +39,7 @@ namespace :rubberstamp do
     # process_icon("Icon@2x_base.png", caption)
     # process_icon("Icon-72_base.png", caption)
     # process_icon("Icon-72@2x_base.png", caption)
+    App.info "motion-rubberstamp", "Rubberstamping icons..."
     Dir.glob('resources/*_base.png').each do |icon|
       process_icon(icon, caption)
     end
@@ -46,6 +47,7 @@ namespace :rubberstamp do
 
   desc "Copy your current app icons to `_base` equivalent backups."
   task :install do
+    App.info "motion-rubberstamp", "Installing: Copying original icons"
     icons =  Dir.glob('resources/Icon*')
     prexisting_base_icons = icons.map{|icon| icon.include?("base") }
     if prexisting_base_icons.include?(true)
@@ -59,6 +61,7 @@ namespace :rubberstamp do
 
   desc "Reverts your icons to their original versions."
   task :revert do
+    App.info "motion-rubberstamp", "Reverting icons to their original versions."
     icons = Dir.glob('resources/Icon*_base.png')
     icons.each do |icon|
       FileUtils.cp(icon, icon.gsub('_base.png', '.png'), :verbose => true)

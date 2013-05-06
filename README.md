@@ -54,6 +54,14 @@ You can also manually invoke motion-rubberstamp at any time with:
 Or to remove the overlays and restore your original icons, you can run
 
     $ rake rubberstamp:revert
+
+## Notes
+
+The iOS Simulator seems to cache or store your app icons when you run a
+build. Motion-rubberstamp is still invoked, but it doesn't appear to
+update on your device. Deleting the app on your device before building
+seems to invoke the refresh, but if anyone knows of a more automated
+solution to invoking an icon refresh, that would be better.
     
 ## Uninstalling
 
