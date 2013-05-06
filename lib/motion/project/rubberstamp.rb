@@ -26,7 +26,16 @@ namespace :rubberstamp do
     end
   end
 
+  def installed?
+    icons =  Dir.glob('resources/Icon*')
+    prexisting_base_icons = icons.map{|icon| icon.include?("base") }
+    prexisting_base_icons.include?(true)
+  end
+
   task :run do
+    # Automatically run install on first run
+    Rake::Task["install"].execute if !installed?
+    
     # piggyback on RubyMotion's own app config tool
     project_config_vars = Motion::Project::App.config.variables
     app_version = project_config_vars['version']
@@ -48,9 +57,7 @@ namespace :rubberstamp do
   desc "Copy your current app icons to `_base` equivalent backups."
   task :install do
     App.info "motion-rubberstamp", "Installing: Copying original icons"
-    icons =  Dir.glob('resources/Icon*')
-    prexisting_base_icons = icons.map{|icon| icon.include?("base") }
-    if prexisting_base_icons.include?(true)
+    if installed?
       raise("Error: It appears that motion-rubberstamp is already installed.")
     else
       icons.each do |icon|
