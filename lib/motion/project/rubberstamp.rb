@@ -51,7 +51,16 @@ namespace :rubberstamp do
       FileUtils.cp(icon, icon.gsub('.png', '_base.png'), :verbose => true)
     end
   end
-  
+
+  desc "Reverts your icons to their original versions."
+  task :revert do
+    icons = Dir.glob('resources/Icon*_base.png')
+    icons.each do |icon|
+      FileUtils.cp(icon, icon.gsub('_base.png', '.png'), :verbose => true)
+      p "Restored  #{icon.gsub('_base.png', '.png')})"
+    end
+  end
+
 end
 
 # Make rubberstamp run before any build

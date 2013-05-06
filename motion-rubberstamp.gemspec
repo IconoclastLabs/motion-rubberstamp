@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["mattsgarrison@iconoclastlabs.com"]
   spec.description   = %q{Adds version and git information overlays to your iOS app icon}
   spec.summary       = %q{Adds version and git information overlays to your iOS app icon}
-  spec.homepage      = "http://github.com/mattsgarrison/motion-rubberstamp"
+  spec.homepage      = "http://github.com/iconoclastlabs/motion-rubberstamp"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
