@@ -47,8 +47,13 @@ namespace :rubberstamp do
   desc "Copy your current app icons to `_base` equivalent backups."
   task :install do
     icons =  Dir.glob('resources/Icon*')
-    icons.each do |icon|
-      FileUtils.cp(icon, icon.gsub('.png', '_base.png'), :verbose => true)
+    prexisting_base_icons = icons.map{|icon| icon.include?("base") }
+    if prexisting_base_icons.include?(true)
+      raise("Error: It appears that motion-rubberstamp is already installed.")
+    else
+      icons.each do |icon|
+        FileUtils.cp(icon, icon.gsub('.png', '_base.png'), :verbose => true)
+      end
     end
   end
 
