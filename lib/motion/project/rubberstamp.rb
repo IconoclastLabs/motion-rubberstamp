@@ -52,5 +52,13 @@ namespace :rubberstamp do
       FileUtils.cp(icon, icon.gsub('.png', '_base.png'), :verbose => true)
     end
   end
-
+  
 end
+
+# Make rubberstamp run before any build
+task 'build:simulator' => 'rubberstamp:run'
+task 'build:device' => 'rubberstamp:run'
+
+# Revert rubberstamp before any archive build
+task 'archive' => 'rubberstamp:revert'
+task 'archive:distribution' => 'rubberstamp:revert'
