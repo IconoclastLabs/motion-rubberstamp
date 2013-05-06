@@ -1,11 +1,10 @@
 require 'pathname'
 require 'fileutils'
 
-# Motion::Project::App.setup do |app|
-#   app.development do
-#     app.vendor_project File.join(File.dirname(__FILE__),"..",'..','framework'), :static
-#   end
-# end
+# Gratuitously lifted from Laurent Sansonetti's motion-testflight.
+unless defined?(Motion::Project::Config)
+  raise "This file must be required within a RubyMotion project Rakefile."
+end
 
 namespace :rubberstamp do
   desc "Stamp iOS app icons with version and git information"
