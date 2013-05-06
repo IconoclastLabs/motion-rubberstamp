@@ -34,8 +34,8 @@ namespace :rubberstamp do
 
   task :run do
     # Automatically run install on first run
-    Rake::Task["install"].execute if !installed?
-    
+    #Rake::Task["install"].execute if !installed?
+
     # piggyback on RubyMotion's own app config tool
     project_config_vars = Motion::Project::App.config.variables
     app_version = project_config_vars['version']
