@@ -36,8 +36,14 @@ can easily be installed via [Homebrew](http://mxcl.github.io/homebrew/):
 
 ## Usage
 
-First use the provided rake task to rename your Icon files (where * is @2x, -568h etc.) to Icon_base, e.g.
-Icon@2x_base.png. This rake task automates it for you if your icons already exist:
+motion-rubberstamp adds itself to the build process, so whenever you run `rake` or `rake device` it will 
+automatically invoke `rake rubberstamp:run` beforehand. When you run `rake archive` or `rake archive:distribution`,
+motion-rubberstamp will automatically invoke `rake rubberstamp:revert`. This means that development builds
+will automatically receive overlays and release builds will use your original icons.
+
+Alternatively, you can manually invoke motion-rubberstamp. First use the provided rake task to rename your
+Icon files (where * is @2x, -568h etc.) to Icon_base, e.g. Icon@2x_base.png. This rake task automates it 
+for you if your icons already exist:
 
     $ rake rubberstamp:install
 
@@ -48,10 +54,9 @@ Then run the rake task to apply the overlay to your icons:
 Now when you next build your project, build information will be overlayed
 as part of your icon.
 
-Unfortunately it doesn't appear that there's a build hook system available for
-RubyMotion so this will have to be ran manually before each build, or
-you'll need to write a custom rake task to Rubberstamp your icons and
-then invoke the build sequentially.
+To remove the overlays and restore your original icons, you can run
+
+    $ rake rubberstamp:revert
 
 ## Contributing
 
