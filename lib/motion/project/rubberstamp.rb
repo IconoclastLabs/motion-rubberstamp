@@ -9,20 +9,22 @@ end
 namespace :rubberstamp do
   desc "Stamp iOS app icons with version and git information"
   def process_icon(icon_name, caption)
-    # There's probably a better way to get this info, I'm not terribly familiar with Ruby's filesystem libs
-
     # Resolve icon's full path
     pwd = Pathname.pwd
     filename = "#{pwd.realdirpath.to_s}/#{icon_name}"
 
     if File.exist? filename
-      width= `identify -format '%w' #{filename}`.to_i
-      new_filename = filename.gsub('_base', '')
-      status = `convert -background '#0008' -fill white -gravity center -size #{width}x30\
-                caption:"#{caption}"\
-                #{filename} +swap -gravity south -composite #{new_filename}`
+      width= `identify -format '%w' #{filename}`
+      height = (width.to_i * 0.4).to_i
+      width = (width.to_i)
+      if width >= 57
+        new_filename = filename.gsub('_base', '')
+        status = `convert -background '#0008' -fill white -gravity center -size #{width.to_i}x#{height} \
+                  caption:'#{caption}' \
+                  #{filename} +swap -gravity south -composite #{new_filename}`
+      end
     else
-      puts "File does not exist, you broke it."
+      App.info "motion-rubberstamp", "File does not exist, you broke it."
     end
   end
 
@@ -43,11 +45,7 @@ namespace :rubberstamp do
     git_commit  = `git rev-parse --short HEAD`
     git_branch  = `git rev-parse --abbrev-ref HEAD`
 
-    caption = "v#{app_version} #{git_commit} #{git_branch}"
-    # process_icon("Icon_base.png", caption)
-    # process_icon("Icon@2x_base.png", caption)
-    # process_icon("Icon-72_base.png", caption)
-    # process_icon("Icon-72@2x_base.png", caption)
+    caption = "v#{app_version} #{git_commit.strip} #{git_branch.strip}"
     App.info "motion-rubberstamp", "Rubberstamping icons..."
     Dir.glob('resources/*_base.png').each do |icon|
       process_icon(icon, caption)
