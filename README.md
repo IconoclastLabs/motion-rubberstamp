@@ -59,11 +59,16 @@ Or to remove the overlays and restore your original icons, you can run
 
 ## Notes
 
-The iOS Simulator seems to cache or store your app icons when you run a
-build. Motion-rubberstamp is still invoked, but it doesn't appear to
-update on your device. Deleting the app on your device before building
-seems to invoke the refresh, but if anyone knows of a more automated
-solution to invoking an icon refresh, that would be better.
+The iOS Simulator will appear to cache your app icons when you run a
+build because RubyMotion's deployer apparently only looks for new resource
+files when deploying (it copies resource files to a simulator directory on 
+your local filesystem). Motion-rubberstamp is still invoked, but it won't 
+appear to update on your simulator. Deleting the app on your simulator 
+before building will invoke the refresh but is a non-optimal solution. I 
+hope to have this solved in the next release.
+
+Motion-rubberstamp also currently only checks for app icons in the `/resources`
+path, regardless of what your Rakefile is configured for.
     
 ## Uninstalling
 
