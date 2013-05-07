@@ -18,8 +18,8 @@ namespace :rubberstamp do
     if File.exist? filename
       width= `identify -format '%w' #{filename}`.to_i
       new_filename = filename.gsub('_base', '')
-      status = `convert -background '#0008' -fill white -gravity center -size #{width}x30\
-                -stroke black caption:"#{caption}"\
+      status = `convert -background '#0008' -fill white -gravity center -size {width}x30\
+                caption:"#{caption}"\
                 #{filename} +swap -gravity south -composite #{new_filename}`
     else
       puts "File does not exist, you broke it."
