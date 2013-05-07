@@ -72,8 +72,9 @@ path, regardless of what your Rakefile is configured for.
     
 ## Uninstalling
 
-Motion-rubberstamp duplicates your original icon files with `_base` suffixes. To uninstall, simply remove
-motion-rubberstamp from your gemfile
+Motion-rubberstamp duplicates your original icon files with `_base` suffixed counterparts.
+To uninstall, simply run `rake rubberstamp:revert` to restore your original icons, then
+delete motion-rubberstamp from your gemfile or rakefile.
 
 ## Contributing
 
