@@ -50,6 +50,8 @@ When you run `rake archive` or `rake archive:distribution`, motion-rubberstamp w
 `rake rubberstamp:revert`. This means that development builds will now automatically receive overlays and 
 release builds will use your original icons.
 
+## Rake Tasks
+
 You can also manually invoke motion-rubberstamp at any time with:
 
     $ rake rubberstamp:run
