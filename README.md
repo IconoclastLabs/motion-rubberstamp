@@ -1,5 +1,7 @@
 # Motion-Rubberstamp
 
+![motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/motion-rubberstamp/logo_200.png "motion-rubberstamp")
+
 This is aimed at being a development tool, it will create an
 overlay for your iOS app icon that includes your version, commit
 and branch information so you can know exactly what version of
