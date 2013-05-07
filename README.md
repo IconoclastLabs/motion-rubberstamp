@@ -43,7 +43,7 @@ can easily be installed via [Homebrew](http://mxcl.github.io/homebrew/):
 
 ## Usage
 
-Motion-rubberstamp adds itself to the build process, so whenever you run `rake` or `rake device` it will 
+Requiring it in your Rakefile is all that's needed to get started. Motion-rubberstamp adds itself to the build process, so whenever you run `rake` or `rake device` it will 
 automatically invoke `rake rubberstamp:run` beforehand. 
 
 When you run `rake archive` or `rake archive:distribution`, motion-rubberstamp will automatically invoke 
