@@ -18,6 +18,7 @@ After:
 
 ## Installation
 
+### Gemfile Install
 Add this line to your RubyMotion app's [Gemfile](http://gembundler.com/v1.3/rubymotion.html):
 
     gem 'motion-rubberstamp'
@@ -26,6 +27,7 @@ And then execute:
 
     $ bundle
 
+### Manual Install
 Or install it manually as:
 
     $ gem install motion-rubberstamp
@@ -34,6 +36,7 @@ and add to your RubyMotion app's Rakefile
 
     require 'motion-rubberstamp'
 
+### Dependencies
 This gem also relies on imagemagick and ghostscript, which
 can easily be installed via [Homebrew](http://mxcl.github.io/homebrew/):
 
@@ -43,10 +46,11 @@ can easily be installed via [Homebrew](http://mxcl.github.io/homebrew/):
 
 ## Usage
 
-Requiring it in your Rakefile is all that's needed to get started. Motion-rubberstamp adds itself to the build process, so whenever you run `rake` or `rake device` it will 
+#### Installing the Gem is all that's needed to get started. 
+Motion-rubberstamp adds itself to the build process, so whenever you run `rake` or `rake device` it will 
 automatically invoke `rake rubberstamp:run` beforehand. 
 
-When you run `rake archive` or `rake archive:distribution`, motion-rubberstamp will automatically invoke 
+_Smart Cleanup:_ When you run `rake archive` or `rake archive:distribution`, motion-rubberstamp will automatically invoke 
 `rake rubberstamp:revert`. This means that development builds will now automatically receive overlays and 
 release builds will use your original icons.
 
