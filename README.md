@@ -15,14 +15,6 @@ Before:
 After:
 ![After motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/icon_after.png "After motion-rubberstamp")
 
-## Re-Inventing the Wheel
-
-As brought to our attention, this was also done by [Clay's Allsopp!](https://github.com/clayallsopp/motion-smarticons), in a most
-elegant solution!  We're hoping to continue progressing this GEM to make sure it is useful and provides a wide array of
-utility regardless :)
-
-We're both inspired by [this blog article](http://www.merowing.info/2013/03/overlaying-application-version-on-top-of-your-icon/) by 
-[@merowing_](http://twitter.com/merowing_)
 
 ## Installation
 
@@ -97,6 +89,10 @@ clue how to write tests for this. But I'll gladly accept any help that's offered
 5. Create new Pull Request
 
 ## Thanks
+
+As brought to our attention, this was also done by [Clay's Allsopp!](https://github.com/clayallsopp/motion-smarticons), in a most
+elegant solution!  We're hoping to continue progressing this gem to make sure it is useful and provides a wide array of
+utility regardless :)
 
 Many thanks to Krzysztof Zabłocki and Evan Doll for the idea and
 implementation
