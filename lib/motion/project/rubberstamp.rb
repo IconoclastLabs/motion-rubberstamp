@@ -70,7 +70,7 @@ namespace :rubberstamp do
       git_commit  = `git rev-parse --short HEAD`
       git_branch  = `git rev-parse --abbrev-ref HEAD`
 
-      caption = "v#{app_version} #{git_commit} #{git_branch}"
+      caption = "v#{app_version} #{git_commit.strip} #{git_branch.strip}"
       # process_icon("Icon_base.png", caption)
       # process_icon("Icon@2x_base.png", caption)
       # process_icon("Icon-72_base.png", caption)
