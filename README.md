@@ -17,7 +17,7 @@ After:
 
 ## Installation
 
-Add this line to your RubyMotion app's Gemfile:
+Add this line to your RubyMotion app's [Gemfile](http://gembundler.com/v1.3/rubymotion.html):
 
     gem 'motion-rubberstamp'
 
