@@ -30,15 +30,32 @@ namespace :rubberstamp do
     end
   end
 
+  # have we made base icons yet?
   def installed?
     icons =  Dir.glob('resources/Icon*')
     prexisting_base_icons = icons.map{|icon| icon.include?("base") }
     prexisting_base_icons.include?(true)
   end
 
+  # check if this app even has icons yet.
+  def has_icons?
+    Dir.glob('resources/Icon*').size > 0
+  end
+
   # stub to check if the app needs to be restamped or not.
   def updated?
     true
+  end
+
+  # copy over rubberstamp icons to use!
+  def deploy_icons
+   lib_dir = File.dirname(__FILE__)
+    local_icons = File.join(lib_dir, "assets/*")
+    App.info "motion-rubberstamp", "Deploying Icons from #{local_icons}"
+    Dir.glob(File.join(lib_dir, "assets/*")).each do |icon|
+      App.info "motion", icon
+      FileUtils.cp(icon, './resources', :verbose => true)
+    end
   end
 
   # delete old app!
@@ -71,10 +88,6 @@ namespace :rubberstamp do
       git_branch  = `git rev-parse --abbrev-ref HEAD`
 
       caption = "v#{app_version} #{git_commit.strip} #{git_branch.strip}"
-      # process_icon("Icon_base.png", caption)
-      # process_icon("Icon@2x_base.png", caption)
-      # process_icon("Icon-72_base.png", caption)
-      # process_icon("Icon-72@2x_base.png", caption)
       App.info "motion-rubberstamp", "Rubberstamping icons..."
       Dir.glob('resources/*_base.png').each do |icon|
         process_icon(icon, caption)
@@ -91,6 +104,7 @@ namespace :rubberstamp do
     if installed?
       raise("Error: It appears that motion-rubberstamp is already installed.")
     else
+      deploy_icons unless has_icons?
       Dir.glob('resources/Icon*').each do |icon|
         FileUtils.cp(icon, icon.gsub('.png', '_base.png'), :verbose => true)
       end
@@ -102,8 +116,7 @@ namespace :rubberstamp do
     App.info "motion-rubberstamp", "Reverting icons to their original versions."
     icons = Dir.glob('resources/Icon*_base.png')
     icons.each do |icon|
-      FileUtils.cp(icon, icon.gsub('_base.png', '.png'), :verbose => true)
-      p "Restored  #{icon.gsub('_base.png', '.png')})"
+      FileUtils.mv(icon, icon.gsub('_base.png', '.png'), :verbose => true)
     end
   end
 
