@@ -1,4 +1,5 @@
 # Motion-Rubberstamp
+#### Just add this gem to your RubyMotion project, and your app icons will get stamped like so!
 
 ![motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/motion-rubberstamp/logo_200.png "motion-rubberstamp")
 App Icon _Before_:
