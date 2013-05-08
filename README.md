@@ -1,17 +1,22 @@
 # Motion-Rubberstamp
 
 ### Quick Tour
-#### Just add this gem to your RubyMotion project, and your app icons will get stamped!
-![motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/motion-rubberstamp/logo_200.png "motion-rubberstamp")
+![motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/motion-rubberstamp/quicktour.png "motion-rubberstamp")
+#### 1. Just add this gem to your RubyMotion project, and your app icons will get stamped!
 App Icon _Before_:
 ![Before motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/icon_before.png "Before motion-rubberstamp")
 App Icon _After:_
 ![After motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/icon_after.png "After motion-rubberstamp")
 
-#### If you don't have an icon, we will automatically provide one.
+#### 2. If you don't have an icon, we will automatically provide one.
 ![Free Icon](https://s3.amazonaws.com/iconoclastweb/github/free.png "Free Rubberstamp Icon")
 
-#### In Summary
+#### 3. Removal
+This gem will intelligently remove itself for your archive builds, but you can also do it mannually via rake.
+
+    $ rake rubberstamp:revert
+
+#### 4. TADAAA!
 This is aimed at being a development tool, it will create an
 overlay for your iOS app icon that includes your version, commit
 and branch information so you can know exactly what version of
@@ -74,7 +79,7 @@ Your app data and simulator are restarted on restamp.  It's a small but notable 
 Motion-rubberstamp _currently_ only checks for app icons in the `/resources`
 path, regardless of what your Rakefile is configured for.
     
-## Removing
+## Uninstall
 #### Bye?
 Rubberstamp will not stamp your archive/production apps.  No need to leave us like that!  But if you must...
 
@@ -83,7 +88,7 @@ delete motion-rubberstamp from your gemfile or rakefile.
 
 #### Changing Icons?
 If you have our starter icon, or you've changed your mind on your icon it's easy to switch!
-Delete your current icons files with `_base` and copy in your new icons!
+Run `rake rubberstamp:revert` and then copy in your new icons to your resource folder.
 
 ## Contributing
 
