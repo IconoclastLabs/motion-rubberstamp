@@ -58,20 +58,6 @@ namespace :rubberstamp do
     end
   end
 
-  # delete old app!
-  def wipe
-    app = App.config.app_bundle('iPhoneSimulator')
-    target = ENV['target'] || App.config.sdk_version
-    sim_apps = File.expand_path("~/Library/Application Support/iPhone Simulator/#{target}/Applications")
-    Dir.glob("#{sim_apps}/**/*.app").each do |app_bundle|
-      if File.basename(app_bundle) == File.basename(app)
-        p "Deleting #{app_bundle}"
-        rm_rf File.dirname(app_bundle)
-        break
-      end
-    end
-  end
-
   task :run do
 
     if updated?
@@ -122,8 +108,7 @@ namespace :rubberstamp do
 
   desc "Deletes app and kills the simulator (for cache reasons)"
   task :sim_clean do
-    App.info "motion-rubberstamp", "Deleting App from simulator for new icons."
-    wipe
+    App.info "motion-rubberstamp", "Closing simulator to clear cached icons"
     scripts_dir = File.join(File.dirname(__FILE__), "scripts")
     close_script = File.expand_path(File.join(scripts_dir, "close_simulator.applescript"))
 
