@@ -9,7 +9,7 @@ App Icon _After:_
 ![Free Icon](https://s3.amazonaws.com/iconoclastweb/github/free.png "Free Rubberstamp Icon")
 
 #### 3. Removal
-This gem will intelligently remove itself for your archive builds, but you can also do it mannually via rake.
+This gem will intelligently omit itself from your archive builds, but you can also do it manually via rake.
 
     $ rake rubberstamp:revert
 
@@ -71,7 +71,7 @@ Or to remove the overlays and restore your original icons, you can run
 ## Notes
 
 The iOS Simulator is trying to cache your app icons.  For this reason we've put in a significant refresh step!
-Your app data and simulator are restarted on restamp.  It's a small but notable necessary evil.
+Your app data and simulator are restarted to refresh the icon to the latest version, which means your simulator will restart each time you build.  It's a small but notable necessary evil.
 
 Motion-rubberstamp _currently_ only checks for app icons in the `/resources`
 path, regardless of what your Rakefile is configured for.
