@@ -8,8 +8,14 @@ unless defined?(Motion::Project::Config)
   raise "This file must be required within a RubyMotion project Rakefile."
 end
 
-namespace :rubberstamp do
-  desc "Stamp iOS app icons with version and git information"
+class RubberStampConfig
+  attr_accessor :caption, :platform
+
+  def initialize
+    @platform = Motion::Project::App.respond_to?(:template) ? Motion::Project::App.template : :ios
+    @caption ||= self.create_caption
+  end
+
   def process_icon(icon_name, caption)
     # Resolve icon's full path
     pwd = Pathname.pwd
@@ -18,7 +24,7 @@ namespace :rubberstamp do
     if File.exist? filename
       width= `identify -format '%w' #{filename}`
       height = (width.to_i * 0.4).to_i
-      width = (width.to_i)
+      width  = (width.to_i)
       if width >= 57
         new_filename = filename.gsub('_base', '')
         status = `convert -background '#0008' -fill white -gravity center -size #{width.to_i}x#{height} \
@@ -28,6 +34,14 @@ namespace :rubberstamp do
     else
       App.info "motion-rubberstamp", "File does not exist, you broke it."
     end
+  end
+
+  def sim_clean
+    App.info "motion-rubberstamp", "Closing simulator to clear cached icons"
+    scripts_dir = File.join(File.dirname(__FILE__), "scripts")
+    close_script = File.expand_path(File.join(scripts_dir, "close_simulator.applescript"))
+
+    system("osascript #{close_script}")
   end
 
   # have we made base icons yet?
@@ -52,12 +66,12 @@ namespace :rubberstamp do
   end
 
   # stub to check if the app needs to be restamped or not.
-  def updated?(caption)
+  def updated?
     previous_caption = `xattr -p com.iconoclastlabs.motion-rubberstamp Rakefile`
     previous_caption.strip!
     if (previous_caption == "") # first run or something is amiss
       return true
-    elsif (caption != previous_caption)
+    elsif (@caption != previous_caption)
       App.info "motion-rubberstamp", "Rubberstamp caption has changed."
       return true
     else
@@ -66,7 +80,7 @@ namespace :rubberstamp do
     end
   end
 
-  # copy over rubberstamp icons to use!
+   # copy over rubberstamp icons to use!
   def deploy_icons
    lib_dir = File.dirname(__FILE__)
     local_icons = File.join(lib_dir, "assets/*")
@@ -77,38 +91,39 @@ namespace :rubberstamp do
     end
   end
 
+end
+
+namespace :rubberstamp do
+  desc "Stamp iOS app icons with version and git information"
   task :run do
 
-    caption = create_caption
+    rubberstamp = RubberStampConfig.new
+    p rubberstamp
 
-    #p Motion::Project::App
-    #p ENV['osx']
-    #platform = Motion::Project::App.respond_to?(:template) ? app.template : :ios
-    platform = Motion::Project::App.respond_to?(:template) ? Motion::Project::App.template : :ios
-
-    if updated?(caption)
+    if rubberstamp.updated?
       App.info "motion-rubberstamp", "Rubberstamping icons..."
       # Let's abuse the fact that we *know* we're on OSX and have xattr available
       # The Rakefile seems like a constant file to store data in:
       attribute = `xattr -w com.iconoclastlabs.motion-rubberstamp "#{caption}" Rakefile`
       # Clean old out the simulator
-      Rake::Task["rubberstamp:sim_clean"].execute if platform == :ios
+      sim_clean() if platform == :ios
       # Automatically run install on first run
       Rake::Task["rubberstamp:install"].execute unless installed?
       # piggyback on RubyMotion's own app config tool
       Dir.glob('resources/*_base.png').each do |icon|
-        process_icon(icon, caption)
+        rubberstamp.process_icon(icon, caption)
       end
     end
   end
 
   desc "Copy your current app icons to `_base` equivalent backups."
   task :install do
+    rubberstamp = RubberStampConfig.new
     App.info "motion-rubberstamp", "First Run Installing: Copying original icons"
-    if installed?
+    if rubberstamp.installed?
       raise("Error: It appears that motion-rubberstamp is already installed.")
     else
-      deploy_icons unless has_icons?
+      rubberstamp.deploy_icons unless rubberstamp.has_icons?
       Dir.glob('resources/Icon*').each do |icon|
         FileUtils.cp(icon, icon.gsub('.png', '_base.png'), :verbose => true)
       end
@@ -122,15 +137,6 @@ namespace :rubberstamp do
     icons.each do |icon|
       FileUtils.mv(icon, icon.gsub('_base.png', '.png'), :verbose => true)
     end
-  end
-
-  desc "Deletes app and kills the simulator (for cache reasons)"
-  task :sim_clean do
-    App.info "motion-rubberstamp", "Closing simulator to clear cached icons"
-    scripts_dir = File.join(File.dirname(__FILE__), "scripts")
-    close_script = File.expand_path(File.join(scripts_dir, "close_simulator.applescript"))
-
-    system("osascript #{close_script}")
   end
 
 end
