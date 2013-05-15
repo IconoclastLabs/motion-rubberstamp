@@ -18,7 +18,8 @@ This is aimed at being a development tool, it will create an
 overlay for your iOS app icon that includes your version, commit
 and branch information so you can know exactly what version of
 your app is running on your device, or so that beta testers can
-easily report which version they are running.
+easily report which version they are running. If your icons don't
+need to be updated, the motion-rubberstamp won't do anything.
 
 ## Installation
 
@@ -50,12 +51,12 @@ can easily be installed via [Homebrew](http://mxcl.github.io/homebrew/):
 
 ## Usage
 
-#### Installing the Gem is all that's needed to get started. 
-Motion-rubberstamp adds itself to the build process, so whenever you run `rake` or `rake device` it will 
-automatically invoke `rake rubberstamp:run` beforehand. 
+#### Installing the Gem is all that's needed to get started.
+Motion-rubberstamp adds itself to the build process, so whenever you run `rake` or `rake device` it will
+automatically invoke `rake rubberstamp:run` beforehand.
 
-_Smart Cleanup:_ When you run `rake archive` or `rake archive:distribution`, motion-rubberstamp will automatically invoke 
-`rake rubberstamp:revert`. This means that development builds will now automatically receive overlays and 
+_Smart Cleanup:_ When you run `rake archive` or `rake archive:distribution`, motion-rubberstamp will automatically invoke
+`rake rubberstamp:revert`. This means that development builds will now automatically receive overlays and
 release builds will use your original icons.
 
 ## Rake Tasks
@@ -70,12 +71,17 @@ Or to remove the overlays and restore your original icons, you can run
 
 ## Notes
 
-The iOS Simulator is trying to cache your app icons.  For this reason we've put in a significant refresh step!
+The iOS Simulator is trying to cache your app icons. For this reason we've put in a significant step that
+will refresh your simulator automatically by closing it before building.
+
 Your app data and simulator are restarted to refresh the icon to the latest version, which means your simulator will restart each time you build.  It's a small but notable necessary evil.
 
 Motion-rubberstamp _currently_ only checks for app icons in the `/resources`
 path, regardless of what your Rakefile is configured for.
-    
+
+Motion-rubberstamp will only run if your version or git information has changed to prevent invoking
+ImageMagick more than necessary.
+
 ## Uninstall
 #### Bye?
 Rubberstamp will not stamp your archive/production apps.  No need to leave us like that!  But if you must...

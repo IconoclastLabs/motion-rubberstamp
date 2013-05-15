@@ -42,9 +42,28 @@ namespace :rubberstamp do
     Dir.glob('resources/Icon*').size > 0
   end
 
+  def create_caption
+    project_config_vars = Motion::Project::App.config.variables
+    app_version = project_config_vars['version']
+    # execute shell commands to get git info
+    git_commit  = `git rev-parse --short HEAD`
+    git_branch  = `git rev-parse --abbrev-ref HEAD`
+    caption = "v#{app_version} #{git_commit.strip} #{git_branch.strip}"
+  end
+
   # stub to check if the app needs to be restamped or not.
-  def updated?
-    true
+  def updated?(caption)
+    previous_caption = `xattr -p com.iconoclastlabs.motion-rubberstamp Rakefile`
+    previous_caption.strip!
+    if (previous_caption == "") # first run or something is amiss
+      return true
+    elsif (caption != previous_caption)
+      App.info "motion-rubberstamp", "Rubberstamp caption has changed."
+      return true
+    else
+      #App.info "motion-rubberstamp", "No Caption difference detected"
+      return false
+    end
   end
 
   # copy over rubberstamp icons to use!
@@ -60,27 +79,21 @@ namespace :rubberstamp do
 
   task :run do
 
-    if updated?
+    caption = create_caption
+
+    if updated?(caption)
+      App.info "motion-rubberstamp", "Rubberstamping icons..."
+      # Let's abuse the fact that we *know* we're on OSX and have xattr available
+      # The Rakefile seems like a constant file to store data in:
+      attribute = `xattr -w com.iconoclastlabs.motion-rubberstamp "#{caption}" Rakefile`
       # Clean old out the simulator
       Rake::Task["rubberstamp:sim_clean"].execute
       # Automatically run install on first run
       Rake::Task["rubberstamp:install"].execute unless installed?
-
       # piggyback on RubyMotion's own app config tool
-      project_config_vars = Motion::Project::App.config.variables
-      app_version = project_config_vars['version']
-      # execute shell commands to get git info
-      git_commit  = `git rev-parse --short HEAD`
-      git_branch  = `git rev-parse --abbrev-ref HEAD`
-
-      caption = "v#{app_version} #{git_commit.strip} #{git_branch.strip}"
-      App.info "motion-rubberstamp", "Rubberstamping icons..."
       Dir.glob('resources/*_base.png').each do |icon|
         process_icon(icon, caption)
       end
-
-    else
-      App.info "motion-rubberstamp", "No change detected"
     end
   end
 
