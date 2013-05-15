@@ -81,13 +81,18 @@ namespace :rubberstamp do
 
     caption = create_caption
 
+    #p Motion::Project::App
+    #p ENV['osx']
+    #platform = Motion::Project::App.respond_to?(:template) ? app.template : :ios
+    platform = Motion::Project::App.respond_to?(:template) ? Motion::Project::App.template : :ios
+
     if updated?(caption)
       App.info "motion-rubberstamp", "Rubberstamping icons..."
       # Let's abuse the fact that we *know* we're on OSX and have xattr available
       # The Rakefile seems like a constant file to store data in:
       attribute = `xattr -w com.iconoclastlabs.motion-rubberstamp "#{caption}" Rakefile`
       # Clean old out the simulator
-      Rake::Task["rubberstamp:sim_clean"].execute
+      Rake::Task["rubberstamp:sim_clean"].execute if platform == :ios
       # Automatically run install on first run
       Rake::Task["rubberstamp:install"].execute unless installed?
       # piggyback on RubyMotion's own app config tool
