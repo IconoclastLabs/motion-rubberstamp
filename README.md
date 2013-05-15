@@ -72,15 +72,14 @@ Or to remove the overlays and restore your original icons, you can run
 ## Notes
 
 The iOS Simulator is trying to cache your app icons. For this reason we've put in a significant step that
-will refresh your simulator automatically by closing it before building.
-
-Your app data and simulator are restarted to refresh the icon to the latest version, which means your simulator will restart each time you build.  It's a small but notable necessary evil.
+will refresh your simulator automatically by closing it, should the stamps be updated.  This is a small but notable necessary evil.
+our build detects that it needs to restamp.  It's a small but notable necessary evil.
 
 Motion-rubberstamp _currently_ only checks for app icons in the `/resources`
 path, regardless of what your Rakefile is configured for.
 
 Motion-rubberstamp will only run if your version or git information has changed to prevent invoking
-ImageMagick more than necessary.
+ImageMagick and pals more than necessary.
 
 ## Uninstall
 #### Bye?
