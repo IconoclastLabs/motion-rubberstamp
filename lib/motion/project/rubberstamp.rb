@@ -126,6 +126,8 @@ namespace :rubberstamp do
     icons.each do |icon|
       FileUtils.mv(icon, icon.gsub('_base.png', '.png'), :verbose => true)
     end
+    # hollow out the caption xattr
+    attribute = `xattr -w com.iconoclastlabs.motion-rubberstamp "" Rakefile`
   end
 
   desc "Deletes app and kills the simulator (for cache reasons)"
