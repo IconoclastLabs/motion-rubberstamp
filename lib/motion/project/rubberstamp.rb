@@ -37,6 +37,11 @@ namespace :rubberstamp do
     prexisting_base_icons.include?(true)
   end
 
+  # do we have imagemagick?
+  def has_imagemagick?
+    system("which identify > /dev/null") && system("which convert > /dev/null")
+  end
+
   # check if this app even has icons yet.
   def has_icons?
     Dir.glob('resources/Icon*').size > 0
@@ -99,14 +104,18 @@ namespace :rubberstamp do
 
   desc "Copy your current app icons to `_base` equivalent backups."
   task :install do
-    App.info "motion-rubberstamp", "First Run Installing: Copying original icons"
-    if installed?
-      raise("Error: It appears that motion-rubberstamp is already installed.")
-    else
-      deploy_icons unless has_icons?
-      Dir.glob('resources/Icon*').each do |icon|
-        FileUtils.cp(icon, icon.gsub('.png', '_base.png'), :verbose => true)
+    if has_imagemagick?
+      App.info "motion-rubberstamp", "First Run Installing: Copying original icons"
+      if installed?
+        raise("Error: It appears that motion-rubberstamp is already installed.")
+      else
+        deploy_icons unless has_icons?
+        Dir.glob('resources/Icon*').each do |icon|
+          FileUtils.cp(icon, icon.gsub('.png', '_base.png'), :verbose => true)
+        end
       end
+    else
+      raise("Error: Cannot find ImageMagick commands.  Please install ImageMagick to proceed.")
     end
   end
 
