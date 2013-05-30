@@ -1,4 +1,5 @@
-source 'https://rubygems.org'
+# A sample Gemfile
+source "https://rubygems.org"
 
-# Specify your gem's dependencies in motion-rubberstamp.gemspec
+# Specify your gem's dependencies in Routable.gemspec
 gemspec
