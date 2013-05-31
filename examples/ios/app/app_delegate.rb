@@ -6,9 +6,9 @@ class AppDelegate
     @window.makeKeyAndVisible
 
     label = UILabel.new
-    label.text = "App Icon should be stamped: Close me and see!"
+    label.text = "App Icon should be stamped!"
     label.sizeToFit
-    label.center = @controller.view.frame.center
+    label.center = @controller.view.center
     @controller.view.addSubview(label)
     true
   end
