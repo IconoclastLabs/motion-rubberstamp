@@ -109,7 +109,11 @@ namespace :rubberstamp do
       if installed?
         raise("Error: It appears that motion-rubberstamp is already installed.")
       else
+        #should we deploy the template icons?
         deploy_icons unless has_icons?
+        # corner case, sometimes there's no resources folder generated yet
+        FileUtils.mkdir('./resources') unless File.directory?('./resources')
+        
         Dir.glob('resources/Icon*').each do |icon|
           FileUtils.cp(icon, icon.gsub('.png', '_base.png'), :verbose => true)
         end
