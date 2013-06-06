@@ -5,7 +5,11 @@ App Icon _Before_:
 App Icon _After:_
 ![After motion-rubberstamp](https://s3.amazonaws.com/iconoclastweb/github/icon_after.png "After motion-rubberstamp")
 
-#### 2. If you don't have an icon, we will automatically provide one.
+#### 2. If you don't have an icon we can provide one to start.
+Simply run the init rake task, and we'll copy a canned placeholder over.
+
+    $ rake rubberstamp:init
+    
 ![Free Icon](https://s3.amazonaws.com/iconoclastweb/github/free.png "Free Rubberstamp Icon")
 
 #### 3. Removal
