@@ -103,13 +103,13 @@ namespace :rubberstamp do
 
     if updated?(caption)
       App.info "motion-rubberstamp", "Rubberstamping icons..."
-      # Let's abuse the fact that we *know* we're on OSX and have xattr available
-      # The Rakefile seems like a constant file to store data in:
-      attribute = `xattr -w com.iconoclastlabs.motion-rubberstamp "#{caption}" Rakefile`
       # Clean old out the simulator
       Rake::Task["rubberstamp:sim_clean"].execute
       # Automatically run install on first run
       Rake::Task["rubberstamp:install"].execute unless installed?
+      # Let's abuse the fact that we *know* we're on OSX and have xattr available
+      # The Rakefile seems like a constant file to store data in:
+      attribute = `xattr -w com.iconoclastlabs.motion-rubberstamp "#{caption}" Rakefile`
       # piggyback on RubyMotion's own app config tool
       Dir.glob('resources/*_base.png').each do |icon|
         process_icon(icon, caption)
