@@ -82,19 +82,34 @@ namespace :rubberstamp do
     end
   end
 
+  def missing_resources?
+    # sometimes there's no resources folder or icons
+    !(File.directory?('./resources') && has_icons?)
+  end
+
+
+  desc "Initializes the app with resources as needed"
+  task :init do
+    # corner case, sometimes there's no resources folder generated yet
+    FileUtils.mkdir('./resources') unless File.directory?('./resources')
+    #should we deploy the template icons?
+    deploy_icons unless has_icons?    
+  end
+
+  desc "Actively stamps the current app icons with captions."
   task :run do
 
     caption = create_caption
 
     if updated?(caption)
       App.info "motion-rubberstamp", "Rubberstamping icons..."
-      # Let's abuse the fact that we *know* we're on OSX and have xattr available
-      # The Rakefile seems like a constant file to store data in:
-      attribute = `xattr -w com.iconoclastlabs.motion-rubberstamp "#{caption}" Rakefile`
       # Clean old out the simulator
       Rake::Task["rubberstamp:sim_clean"].execute
       # Automatically run install on first run
       Rake::Task["rubberstamp:install"].execute unless installed?
+      # Let's abuse the fact that we *know* we're on OSX and have xattr available
+      # The Rakefile seems like a constant file to store data in:
+      attribute = `xattr -w com.iconoclastlabs.motion-rubberstamp "#{caption}" Rakefile`
       # piggyback on RubyMotion's own app config tool
       Dir.glob('resources/*_base.png').each do |icon|
         process_icon(icon, caption)
@@ -108,12 +123,9 @@ namespace :rubberstamp do
       App.info "motion-rubberstamp", "First Run Installing: Copying original icons"
       if installed?
         raise("Error: It appears that motion-rubberstamp is already installed.")
+      elsif missing_resources?
+        raise("Error: You are missing essential resources for stamping.  Try 'rake rubberstamp:init' to deploy canned resources.")
       else
-        # corner case, sometimes there's no resources folder generated yet
-        FileUtils.mkdir('./resources') unless File.directory?('./resources')
-        #should we deploy the template icons?
-        deploy_icons unless has_icons?
-        
         Dir.glob('resources/Icon*').each do |icon|
           FileUtils.cp(icon, icon.gsub('.png', '_base.png'), :verbose => true)
         end
