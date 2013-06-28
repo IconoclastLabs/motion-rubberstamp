@@ -35,7 +35,7 @@ namespace :rubberstamp do
       # Clean old out the simulator
       Rake::Task["rubberstamp:sim_clean"].execute
       # Automatically run install on first run
-      Rake::Task["rubberstamp:install"].execute unless installed?
+      Rake::Task["rubberstamp:install"].execute unless rubberstamp.installed?
       # Let's abuse the fact that we *know* we're on OSX and have xattr available
       # The Rakefile seems like a constant file to store data in:
       attribute = `xattr -w com.iconoclastlabs.motion-rubberstamp "#{caption}" Rakefile`
