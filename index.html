@@ -31,30 +31,36 @@
         <hr>
 
         <section id="main_content">
-          <p><img src="https://s3.amazonaws.com/iconoclastweb/github/motion-rubberstamp/logo_200.png" alt="motion-rubberstamp" title="motion-rubberstamp"></p>
+          <p><img src="https://s3.amazonaws.com/iconoclastweb/github/motion-rubberstamp/quicktour.png" alt="motion-rubberstamp" title="motion-rubberstamp"></p>
 
-<h4>1. Just add this gem to your RubyMotion project, and your app icons will get stamped!</h4>
+<h4>
+<a name="1-just-add-this-gem-to-your-rubymotion-project-and-your-app-icons-will-get-stamped" class="anchor" href="#1-just-add-this-gem-to-your-rubymotion-project-and-your-app-icons-will-get-stamped"><span class="octicon octicon-link"></span></a>1. Just add this gem to your RubyMotion project, and your app icons will get stamped!</h4>
 
-<p>App Icon <em>Before</em></p>
+<p>App Icon <em>Before</em>:
+<img src="https://s3.amazonaws.com/iconoclastweb/github/icon_before.png" alt="Before motion-rubberstamp" title="Before motion-rubberstamp">
+App Icon <em>After:</em>
+<img src="https://s3.amazonaws.com/iconoclastweb/github/icon_after.png" alt="After motion-rubberstamp" title="After motion-rubberstamp"></p>
 
-<p><img src="https://s3.amazonaws.com/iconoclastweb/github/icon_before.png" alt="Before motion-rubberstamp" title="Before motion-rubberstamp"></p>
+<h4>
+<a name="2-if-you-dont-have-an-icon-we-can-provide-one-to-start" class="anchor" href="#2-if-you-dont-have-an-icon-we-can-provide-one-to-start"><span class="octicon octicon-link"></span></a>2. If you don't have an icon we can provide one to start.</h4>
 
-<p>App Icon <em>After</em></p>
+<p>Simply run the init rake task, and we'll copy a canned placeholder over.</p>
 
-<p><img src="https://s3.amazonaws.com/iconoclastweb/github/icon_after.png" alt="After motion-rubberstamp" title="After motion-rubberstamp"></p>
-
-<h4>2. If you don't have an icon, we will automatically provide one.</h4>
+<pre><code>$ rake rubberstamp:init
+</code></pre>
 
 <p><img src="https://s3.amazonaws.com/iconoclastweb/github/free.png" alt="Free Icon" title="Free Rubberstamp Icon"></p>
 
-<h4>3. Removal</h4>
+<h4>
+<a name="3-removal" class="anchor" href="#3-removal"><span class="octicon octicon-link"></span></a>3. Removal</h4>
 
 <p>This gem will intelligently omit itself from your archive builds, but you can also do it manually via rake.</p>
 
 <pre><code>$ rake rubberstamp:revert
 </code></pre>
 
-<h4>4. TADAAA!</h4>
+<h4>
+<a name="4-tadaaa" class="anchor" href="#4-tadaaa"><span class="octicon octicon-link"></span></a>4. TADAAA!</h4>
 
 <p>This is aimed at being a development tool, it will create an
 overlay for your iOS app icon that includes your version, commit
@@ -63,9 +69,11 @@ your app is running on your device, or so that beta testers can
 easily report which version they are running. If your icons don't
 need to be updated, the motion-rubberstamp won't do anything.</p>
 
-<h2>Installation</h2>
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<h3>Gemfile Install</h3>
+<h3>
+<a name="gemfile-install" class="anchor" href="#gemfile-install"><span class="octicon octicon-link"></span></a>Gemfile Install</h3>
 
 <p>Add this line to your RubyMotion app's <a href="http://gembundler.com/v1.3/rubymotion.html">Gemfile</a>:</p>
 
@@ -77,7 +85,8 @@ need to be updated, the motion-rubberstamp won't do anything.</p>
 <pre><code>$ bundle
 </code></pre>
 
-<h3>Manual Install</h3>
+<h3>
+<a name="manual-install" class="anchor" href="#manual-install"><span class="octicon octicon-link"></span></a>Manual Install</h3>
 
 <p>Or install it manually as:</p>
 
@@ -89,7 +98,8 @@ need to be updated, the motion-rubberstamp won't do anything.</p>
 <pre><code>require 'motion-rubberstamp'
 </code></pre>
 
-<h3>Dependencies</h3>
+<h3>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h3>
 
 <p>This gem also relies on imagemagick and ghostscript, which
 can easily be installed via <a href="http://mxcl.github.io/homebrew/">Homebrew</a>:</p>
@@ -99,9 +109,11 @@ can easily be installed via <a href="http://mxcl.github.io/homebrew/">Homebrew</
 $ brew install ghostscript
 </code></pre>
 
-<h2>Usage</h2>
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<h4>Installing the Gem is all that's needed to get started.</h4>
+<h4>
+<a name="installing-the-gem-is-all-thats-needed-to-get-started" class="anchor" href="#installing-the-gem-is-all-thats-needed-to-get-started"><span class="octicon octicon-link"></span></a>Installing the Gem is all that's needed to get started.</h4>
 
 <p>Motion-rubberstamp adds itself to the build process, so whenever you run <code>rake</code> or <code>rake device</code> it will
 automatically invoke <code>rake rubberstamp:run</code> beforehand.</p>
@@ -110,7 +122,8 @@ automatically invoke <code>rake rubberstamp:run</code> beforehand.</p>
 <code>rake rubberstamp:revert</code>. This means that development builds will now automatically receive overlays and
 release builds will use your original icons.</p>
 
-<h2>Rake Tasks</h2>
+<h2>
+<a name="rake-tasks" class="anchor" href="#rake-tasks"><span class="octicon octicon-link"></span></a>Rake Tasks</h2>
 
 <p>You can also manually invoke motion-rubberstamp at any time with:</p>
 
@@ -122,11 +135,13 @@ release builds will use your original icons.</p>
 <pre><code>$ rake rubberstamp:revert
 </code></pre>
 
-<h2>Notes</h2>
+<h2>
+<a name="notes" class="anchor" href="#notes"><span class="octicon octicon-link"></span></a>Notes</h2>
 
 <p>The iOS Simulator is trying to cache your app icons. For this reason we've put in a significant step that
-will refresh your simulator automatically by closing it, should the stamps be updated.  This is a small but notable necessary evil.
-our build detects that it needs to restamp.  It's a small but notable necessary evil.</p>
+will refresh your simulator automatically by closing the simulator to force the icon to refresh.  We've put
+in a process to detect changes and minimize the amount of icon re-rendering and simulator restarting is 
+required, but it's a notable necessary evil to ensure the icons are always current.</p>
 
 <p>Motion-rubberstamp <em>currently</em> only checks for app icons in the <code>/resources</code>
 path, regardless of what your Rakefile is configured for.</p>
@@ -134,21 +149,25 @@ path, regardless of what your Rakefile is configured for.</p>
 <p>Motion-rubberstamp will only run if your version or git information has changed to prevent invoking
 ImageMagick and pals more than necessary.</p>
 
-<h2>Uninstall</h2>
+<h2>
+<a name="uninstall" class="anchor" href="#uninstall"><span class="octicon octicon-link"></span></a>Uninstall</h2>
 
-<h4>Bye?</h4>
+<h4>
+<a name="bye" class="anchor" href="#bye"><span class="octicon octicon-link"></span></a>Bye?</h4>
 
 <p>Rubberstamp will not stamp your archive/production apps.  No need to leave us like that!  But if you must...</p>
 
 <p>To uninstall, simply run <code>rake rubberstamp:revert</code> to restore your original icons, then
 delete motion-rubberstamp from your gemfile or rakefile.</p>
 
-<h4>Changing Icons?</h4>
+<h4>
+<a name="changing-icons" class="anchor" href="#changing-icons"><span class="octicon octicon-link"></span></a>Changing Icons?</h4>
 
 <p>If you have our starter icon, or you've changed your mind on your icon it's easy to switch!
 Run <code>rake rubberstamp:revert</code> and then copy in your new icons to your resource folder.</p>
 
-<h2>Contributing</h2>
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
 <p>I've probably made the file management more difficult and rigid than it needs to be, and I have no
 clue how to write tests for this. But I'll gladly accept any help that's offered.</p>
@@ -159,7 +178,8 @@ clue how to write tests for this. But I'll gladly accept any help that's offered
 <li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
 <li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
 <li>Create new Pull Request</li>
-</ol><h2>Thanks</h2>
+</ol><h2>
+<a name="thanks" class="anchor" href="#thanks"><span class="octicon octicon-link"></span></a>Thanks</h2>
 
 <p>As brought to our attention, this was also done by <a href="https://github.com/clayallsopp/motion-smarticons">Clay's Allsopp!</a>, in a most
 elegant solution!  We're hoping to continue progressing this gem to make sure it is useful and provides a wide array of
@@ -172,7 +192,7 @@ implementation
 
         <footer>
           Motion-rubberstamp is maintained by <a href="https://github.com/IconoclastLabs">IconoclastLabs</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
         </footer>
 
         
