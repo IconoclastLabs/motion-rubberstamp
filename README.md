@@ -75,16 +75,34 @@ Or to remove the overlays and restore your original icons, you can run
 
 ## Notes
 
+_Dealing with cache:_ 
 The iOS Simulator is trying to cache your app icons. For this reason we've put in a significant step that
 will refresh your simulator automatically by closing the simulator to force the icon to refresh.  We've put
 in a process to detect changes and minimize the amount of icon re-rendering and simulator restarting is 
 required, but it's a notable necessary evil to ensure the icons are always current.
 
+_Checking resources:_
 Motion-rubberstamp _currently_ only checks for app icons in the `/resources`
 path, regardless of what your Rakefile is configured for.
 
+_Smart Stamps:_
 Motion-rubberstamp will only run if your version or git information has changed to prevent invoking
 ImageMagick and pals more than necessary.
+
+_Add to .gitignore:_
+It is *highly recommended*, that once you have rubberstamped your Icon and added the base files to the repo, that you 
+add your stamped icon files to your `.gitignore` that is:
+```
+resources/Icon-72.png
+resources/Icon-72@2x.png
+resources/Icon-Small-50@2x.png
+resources/Icon-Small@2x.png
+resources/Icon.png
+resources/Icon@2x.png
+```
+This will stop git from asking you to commit silly stamps, and avoid binary merge conflicts with anyone else who might be
+working on the project.  If you like to commit a lot and you're the only one working on the project then by all means 
+have fun and igore this message :+1:
 
 ## Uninstall
 #### Bye?
